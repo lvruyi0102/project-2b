@@ -1,0 +1,1 @@
+Positioning one-pager. Fill until a stranger understands in 60 seconds. Kill the sentence if 4/5 practitioners say they do not get it or are not in a hurry.

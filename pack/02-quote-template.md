@@ -1,0 +1,1 @@
+Quote template: scope in/out, deliverables table, 50/50 or full prepay under CNY 2000, one revision round.
