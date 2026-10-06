@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OPC OS 报价单</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:720px;margin:32px auto;padding:0 16px;line-height:1.5}
+label{display:block;margin-top:12px;font-size:14px}
+input,select,textarea{width:100%;padding:8px;margin-top:4px;box-sizing:border-box}
+button{margin-top:16px;padding:10px 16px}
+pre{background:#f6f6f6;padding:12px;white-space:pre-wrap}
+</style>
+</head>
+<body>
+<h1>一人公司报价单</h1>
+<p>仅生成报价文本。不收款、不存数据、不构成合同。正式使用前需本人核对税务与开票事项。</p>
+<label>客户名称 <input id="client" /></label>
+<label>交付物 <input id="deliverable" value="定位+报价+首次开票清单" /></label>
+<label>工时（小时） <input id="hours" type="number" value="8" min="1" /></label>
+<label>时薪（人民币/小时） <input id="rate" type="number" value="300" min="0" /></label>
+<label>固定费（人民币） <input id="fixed" type="number" value="0" min="0" /></label>
+<label>预付比例（%） <input id="deposit" type="number" value="50" min="0" max="100" /></label>
+<button type="button" onclick="build()">生成报价文本</button>
+<pre id="out"></pre>
+<script>
+function build(){
+  const hours = Number(document.getElementById('hours').value)||0;
+  const rate = Number(document.getElementById('rate').value)||0;
+  const fixed = Number(document.getElementById('fixed').value)||0;
+  const deposit = Number(document.getElementById('deposit').value)||0;
+  const total = hours*rate + fixed;
+  const dep = Math.round(total*deposit)/100;
+  const client = document.getElementById('client').value || '（客户名称）';
+  const item = document.getElementById('deliverable').value || '（交付物）';
+  document.getElementById('out').textContent =
+    '报价单\n客户：'+client+'\n交付：'+item+'\n工时：'+hours+' × '+rate+' = '+(hours*rate)+'\n固定费：'+fixed+'\n合计：'+total+' 人民币\n预付（'+deposit+'%）：'+dep+' 人民币\n尾款：'+(total-dep)+' 人民币\n\n范围外不做：未写入本单的修改、第三方费用、线下出差。\n失效：发出后 7 日未确认则作废。\n说明：本文本是报价草稿，不是已签署合同，也不是发票。';
+}
+</script>
+</body>
+</html>
